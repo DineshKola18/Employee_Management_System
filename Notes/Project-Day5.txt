@@ -261,62 +261,6 @@ class EmployeeListComponent extends Component
 export default EmployeeListComponent;
 
 
-How to push the code to github
-==============================
-step1:
-------
-	Create a remote repository.
-	ex:
-		https://github.com/NiyazulHasan/java-project40
-
-step2:
-------
-	Create a folder on a desktop and add the project files.
-
-step3:
-------
-	Open the git bash from same folder.
-
-step4:
------
-	initialized empty git repository.
-	ex:
-		git init 
-
-step5:
-------
-	Switch master branch to main branch.
-	ex:
-		git branch --move master main 
-	
-
-step6:
-------
-	Add the files to staging area.
-	ex:
-		git add . 
-
-step7:
------
-	Commit the changes.
-	ex:
-		git commit -m "Project Notes"
-
-step8:
-------
-	Add remote repository.
-	ex:
-		git remote add origin https://github.com/NiyazulHasan/java-project40
-
-step9:
-------
-	Push the code.
-	ex:
-		git push -f origin main 
-
-
-
-
 
 
 

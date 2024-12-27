@@ -1,0 +1,12 @@
+package com.dinesh.www.repo;
+
+import org.springframework.stereotype.Repository;
+
+import com.dinesh.www.model.Employee;
+
+@Repository
+public interface EmployeeRepository extends jpaRepository<Employee,Long>
+{
+
+	
+}

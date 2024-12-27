@@ -1,0 +1,13 @@
+package com.dinesh.www.model;
+
+public class Employee {
+
+	@id
+	private long id;
+	@coloum
+	private String firstName;
+	@coloum
+	private String lastName;
+	@coloum
+	private String email;
+}

@@ -1,0 +1,5 @@
+package com.dinesh.www.repo;
+
+public interface EmployeeRepository {
+
+}

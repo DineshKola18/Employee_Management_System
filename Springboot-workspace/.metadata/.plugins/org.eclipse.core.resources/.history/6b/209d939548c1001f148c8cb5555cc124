@@ -1,0 +1,6 @@
+package com.dinesh.www.exception;
+
+public class ResourseNotFoundException extends RuntimeException
+{
+   public Resourse
+}

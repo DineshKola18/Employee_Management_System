@@ -1,0 +1,254 @@
+step11:
+--------
+	Create a Exception class inside "com.ihub.www.exception" package.
+
+RosourceNotFoundException.java
+------------------------------
+package com.ihub.www.exception;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.ResponseStatus;
+
+@ResponseStatus(value = HttpStatus.NOT_FOUND)
+public class ResourceNotFoundException extends RuntimeException
+{
+	public ResourceNotFoundException(String message)
+	{
+		super(message);
+	}
+}
+
+
+step12:
+--------
+	Create a react project i.e react-frontend.
+	ex:
+		reactworkspace> npx create-react-app  react-frontend
+
+step13:
+------
+	Open the VSC editor.
+	ex:
+		reactworkspace> code . 
+
+step14:
+------
+	Switch to the project.
+	ex:
+		reactworkspace> cd  react-frontend.
+
+step15:
+------
+	Install web-vitals, bootstrap and axios library.
+	ex:
+		
+		reactworkspace/react-fronend> npm install web-vitals
+		reactworkspace/react-fronend> npm install bootstrap
+		reactworkspace/react-fronend> npm install axio 
+
+step16:
+-------
+	Import bootstrap inside index.js file.
+
+index.js
+-------
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import './index.css';
+import App from './App';
+import reportWebVitals from './reportWebVitals';
+import '../node_modules/bootstrap/dist/css/bootstrap.css';
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
+);
+
+reportWebVitals();
+
+
+
+step17:
+------
+	Create a service folder inside "src" folder.
+
+
+step18:
+------
+	Create a EmployeeService.js file inside "service" folder.
+
+EmployeeService.js
+-----------------
+import axios from 'axios';
+
+const EMPLOYEE_BASE_API="http://localhost:9090/api/v1/employees";
+
+class EmployeeService
+{
+    getEmployees()
+    {
+        return axios.get(EMPLOYEE_BASE_API);
+    }
+}
+export default new EmployeeService();
+
+
+step19:
+-------
+	create a "components" folder inside "src" folder.
+
+ 
+step20:
+------
+	Create a  EmployeeListComponent.js file inside "components" folder.
+
+EmployeeListComponent.js
+------------------------
+import {Component} from 'react';
+import EmployeeService from '../service/EmployeeService';
+
+class EmployeeListComponent extends Component
+{
+    constructor()
+    {
+        super();
+
+        this.state={
+            employees:[]
+        }
+    }
+
+    componentDidMount()
+    {
+        EmployeeService.getEmployees().then(res=>{
+            this.setState({employees:res.data});
+        })
+    }
+
+    render()
+    {
+        return (
+             <div className='container mt-5'>
+                <h3 className='text-center'>Employee List</h3>
+
+                <div className='row mt-5'>
+                    <table className='table table-bordered table-striped'>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>FIRSTNAME</th>
+                                <th>LASTNAME</th>
+                                <th>EMAIL</th>
+                                <th>ACTIONS</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {
+                                this.state.employees.map(employee=>{
+                                    return <tr key={employee.id}>
+                                                <td>{employee.id}</td>
+                                                <td>{employee.firstName}</td>
+                                                <td>{employee.lastName}</td>
+                                                <td>{employee.email}</td>
+                                            </tr>
+                                })
+                            }
+                        </tbody>
+                    </table>
+                </div>
+             </div>   
+        )
+    }
+}
+export default EmployeeListComponent;
+
+
+
+
+step21:
+-------
+	Call EmployeeListComponent.js file from App.js file.
+
+App.js 
+-------
+import React from 'react'
+import EmployeeListComponent from './components/EmployeeListComponent'
+
+function App() {
+  return (
+    <div>
+        <EmployeeListComponent/>
+    </div>
+  )
+}
+
+export default App
+
+
+
+step22:
+------
+	Run react application.
+	ex:
+		react-frontend> npm start 
+
+step23:
+------
+	To avoid Network Error we need to add @CrossOrigin Annotation on EmployeeController.java file.
+
+EmployeeController.java
+----------------------
+package com.ihub.www.controller;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.ihub.www.model.Employee;
+import com.ihub.www.service.EmployeeService;
+
+@CrossOrigin(origins = "http://localhost:3000")
+@RestController
+@RequestMapping("/api/v1/")
+public class EmployeeController 
+{
+	@Autowired
+	EmployeeService employeeService;
+	
+	@GetMapping("/employees")
+	public List<Employee> getAllEmployees()
+	{
+		return employeeService.getAllEmployees();
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
